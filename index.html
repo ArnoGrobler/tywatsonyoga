@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ty watson</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+
+        .headertext-container {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            font-family: 'Saira Condensed', sans-serif;
+            font-size: 17pt;
+            text-align: center;
+            color: black;
+            z-index: 1;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: visibility 0.2s, opacity 0.2s linear;
+        }
+
+        #subtext-container {
+          position: fixed;
+           width: 100%;
+          top: 70px;
+          left: 50%;
+          transform: translate(-50%, 0%);
+          font-family: 'Saira', sans-serif;
+          font-size: 8pt;
+          text-align: center;
+          color: black;
+          z-index: 1;
+          font-weight: 100;
+          transition: visibility 0.1s, opacity 0.1s linear;
+        }
+
+        .morelink:hover{
+          color: white;
+          cursor: pointer
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgb(255 255 255 / 20%), rgba(255, 255, 255, 0));
+            z-index: 0;
+        }
+        .circle {
+            border: black solid 2px;
+            border-radius: 50px;
+            height: 16px;
+            width: 16px;
+            background: black;
+            position: absolute;
+            top: 23px;
+            right: 23px;
+            transition: background 0.5s;
+            cursor: pointer;
+        }
+        .circlehover {
+            background: transparent;
+            cursor: pointer;
+            right: 24px;
+        }
+
+        #panel {
+          position: fixed;
+          top: 0;
+          right: 0px;
+          width: 1px;
+          height: 100%;
+          background: transparent;
+          backdrop-filter: blur(50px);
+          -webkit-backdrop-filter:  blur(50px);
+          z-index: 0;
+          transition: width 0.3s, opacity 0.3s;
+          overflow: auto;
+          opacity: 0;
+        } 
+
+
+        ::-webkit-scrollbar {
+          width: 0px;
+          height: 00px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+              background-color: rgb(255 255 255 / 00%);
+        }
+
+        ::-webkit-scrollbar-track {
+           background-color: rgb(255 255 255 / 00%);
+        }
+
+        .panelitems{
+            transition: left 0.3s;
+            left: 100%;
+            top: 50%;
+            transform: translate(0, -50%);
+            position: fixed;
+
+        }
+        
+        #panel.open {
+            background-color: rgb(255 255 255 / 21%);
+            /*left: calc(100vw - 400px);*/
+            /*left:400px;*/
+            width:400px;
+            opacity: 100;
+            position: absolute;
+        }
+
+        .headertitems.open{
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.1s, opacity 0.1s linear;
+        }
+
+        .spacer{
+          padding: 40px;
+        }
+
+        .headerpanel{
+          font-family: Helvetica;
+          font-size: 3vh;
+          font-weight: 100;
+          position: relative;
+          padding: 30px;
+          padding-bottom: 0px;
+          text-align: center;
+          text-transform: uppercase;
+        }
+
+        .bodypanel{
+          font-family: Helvetica;
+          font-size: 1.7vh;
+          font-weight: 100;
+          position: relative;
+          padding: 3px;
+          padding-bottom: 0px;
+          text-align: center;
+          width: 288px;
+        }
+
+        .panelitems.open {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /*position: fixed;*/
+
+        }
+
+        .about{
+            display: none;
+              opacity: 0;
+              transition: visibility 0.1s, opacity 0.1s linear;
+        }
+
+
+        a:-webkit-any-link {
+            color: #006bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #0200ff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .schedulecomponent {
+            background: white;
+            width: 360px;
+            border-radius: 5px;
+            margin: 10px 22px 10px 22px;
+            height: max-content;
+        }
+
+        .workshopcomponent{
+            background: white;
+            width: 360px;
+            height: 200px;
+            border-radius: 5px;
+            margin: 15px 22px 10px 22px;
+            background-size: cover;
+        }
+        .infoblockcomponent{
+            /*background: white;*/
+            width: 360px;
+            height: 200px;
+            border-radius: 5px;
+            margin: 15px 22px 10px 22px;
+        }
+        .aboutblockcomponent{
+            background: #ffffff00;
+            width: 360px;
+            border-radius: 5px;
+            font-family: system-ui;
+            font-size: 14px;
+            margin: 15px 22px 10px 22px;
+            text-align: justify;
+        }
+        .minicomponent{
+            background: white;
+            display: inline-block;
+            width: 170px;
+            height: 170px;
+            border-radius: 5px;
+            /*margin: 5px 15px 10px 0px;*/
+            background-size: cover;
+        }
+
+        .linearinfoblock {
+            width: 161px;
+            height: 72px;
+            position: relative;
+            background: #00000000;
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border-radius: 5px;
+            left: 5px;
+            top: 94px;
+        }
+
+        .linearworkblock {
+            width: 202px;
+            height: 175px;
+            position: relative;
+            background: #ffffff75;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 5px;
+            left: 8px;
+            top: 8px;
+            padding-top: 9px;
+        }
+  
+        .minicomponent:first-child{
+            margin: 0px 13px 0px 0px;
+        }
+
+        .aboutpanel{
+            width:  431px;
+        }
+        .miniheader {
+            font-weight: 700;
+            font-size: 13px;
+            font-family: system-ui;
+            color: white;
+            position: absolute;
+            padding-left: 12px;
+            bottom: 54px;
+            font-variant: all-small-caps;
+        }
+        .minidesc {
+            font-size: 10px;
+            font-family: system-ui;
+            color: white;
+            position: absolute;
+            bottom: 16px;
+            padding-left: 12px;
+            padding-right: 6px;
+            height: 33px;
+        }
+
+
+
+
+        .daygrouping{
+            display: flex;
+            padding-top: 18px;
+            padding-left: 23px;
+         }
+        .day{
+            width: 100px;
+            font-family: system-ui;
+            font-variant: all-petite-caps;
+            font-weight: 700;
+            color: #007fa5;
+            font-size: 18px;
+        }
+        .listofdays{
+            width:100%
+        }
+      
+        .classitem {
+            display: flex;
+            font-family: system-ui;
+            font-size: 13px;
+            padding-bottom: 10px;
+        }
+
+        .colourline{
+            border: #ffcccc 2px solid;
+            margin-right: 5px;
+        }
+        .time{
+            color: grey;
+        }
+        .location{
+            color: grey;
+            text-align: right;
+        }
+        .booking{
+            font-variant: all-petite-caps;
+            text-align: right;
+            font-weight: bold
+
+        }
+        .classitemlast{
+            width:86px
+        }
+
+        .title{
+            width:130px
+        }
+        /* Hide the scrollbar by default */
+        .schedulecomponent {
+          overflow: hidden;
+        }
+
+         .schedulecomponent:hover {
+          overflow: auto;
+        }
+
+        .workshoptitle{
+            /*font-variant: all-petite-caps;*/
+            font-family: system-ui;
+        }
+        .workshoptitle{
+            /*font-variant: all-petite-caps;*/
+            font-family: system-ui;
+            font-weight: 700;
+            padding-left: 10px;
+        }
+        .workshoptype{
+            /*font-variant: all-petite-caps;*/
+            font-family: system-ui;
+            padding-left: 10px;
+            font-size: 12px;
+        }
+        .workshopsubtitle {
+            font-variant: all-petite-caps;
+            font-family: system-ui;
+            padding-left: 10px;
+            font-size: 12px;
+            color: #3c3c3c;
+        }
+        .workshopsubdesc {
+
+            font-family: system-ui;
+            font-size: 11px;
+            padding-top: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 66px;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .workshoplink{
+
+            font-variant: all-petite-caps;
+            font-family: system-ui;
+            bottom: 18px;
+            position: relative;
+            left: 63px;
+            font-weight: bold
+
+        }
+        .workshopdate{
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50px;
+            font-family: system-ui;
+            font-size: 9px;
+            right: -287px;
+            top: -185px;
+            text-align: center;
+            box-shadow: #4b4b4b52 0px 0px 9px;
+        }
+        .workshoptext{
+            text-align: center;
+            top: 50%;
+            position: relative;
+            transform: translate(0, -50%);
+        }
+    
+        .aboutcomponent{
+           
+        /*    margin: 10px 22px 10px 22px;*/
+            height: 70px;
+            display: flex;
+            position: sticky;
+            bottom: 10px;
+        }
+
+        .aboutcomponentinner {
+            /* left: 50%; */
+            /* margin: 15px 22px 10px 22px; */
+            margin-left: 22px;
+            width: 360px;
+            display: flex;
+            border-radius: 5px;
+            background: #ffffff99;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter:  blur(30px);
+            position: relative;
+            /* transform: translate(-50%); */
+        }
+
+        .aboutlink{
+            font-variant: all-petite-caps;
+            font-family: system-ui;
+            font-weight: bold;
+            font-size: 16px;
+            bottom: 33px;
+            right: 25px;
+            color: #595959;
+            position: relative;
+            height: min-content;
+            width:100%;
+            top:50%;
+            text-align:right;
+            transform: translate(0,-50%);
+             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+
+        }
+        ..aboutlink::focus{
+            color: red
+
+        }
+        .aboutpicturecomponent {
+            margin-top: 20px;
+            /*width: 346px;*/
+            height: 200px;
+            background-size: cover;
+            border-radius: 8px;
+            left: 50%;
+            position: relative;
+            transform: translate(-50%);
+            width: 90%;
+            max-width: 360px;
+        }
+
+        .imagebtn{
+            background-size: cover;
+            width: 95px;
+            height: 40px;
+            min-width: 40px;
+            left: 22px;
+            top: 14px;
+            border-radius: 48px;
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .menubox{
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 64px;
+            height: 64px;
+            cursor:pointer;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            /*background: beige;*/
+        }
+
+        .certs{
+
+            width: 145px;
+            height: 60px;
+            margin-top: 58px;
+            left: 50%;
+            transform: translate(-50%);
+            position: relative;
+            background-size: cover;
+        }
+
+
+          @media screen and (max-width: 1200px) {
+            .aboutpanel{
+            width:  330px;
+        }
+          
+        }
+
+        @media screen and (max-width: 1030px) {
+            #panel.open {
+                background-color: rgb(255 255 255 / 21%);
+                /*left: 0%;*/
+                width: 100%;
+                /*position: absolute;*/
+            }
+            .schedulecomponent {
+                left: 50%;
+                transform: translate(-50%,0px);
+                position: relative;
+                margin: 10px 22px 10px 0px;
+              }
+             .workshopcomponent {
+                left: 50%;
+                transform: translate(-50%,0px);
+                position: relative;
+                margin: 15px 22px 10px 0px;
+              }
+             .infoblockcomponent{
+                left: 50%;
+                transform: translate(-50%,0px);
+                position: relative;
+                margin: 15px 22px 10px 0px;
+                
+             }
+
+             .aboutcomponent{
+                display: flex;
+                width: 100%;
+             }
+
+             .aboutblockcomponent {
+                background: #ffffff00;
+                width: 90%;
+                max-width: 360px;
+                left: 50%;
+                transform: translate(-50%);
+                position: relative;
+                border-radius: 5px;
+                font-family: system-ui;
+                font-size: 14px;
+                margin: 0px;
+                text-align: justify;
+            }
+            .aboutcomponentinner {
+                left: 50%;
+                transform: translate(-50%,0px);
+                position: relative;
+                margin-left: 0px;
+                width: 90%;
+                max-width: 360px;
+            }
+            .workshoplink{
+                position:absolute;
+            }
+
+            .workshopdate{
+                top: -165px;
+            }
+
+          
+        }
+
+        @media screen and (max-width: 390px) {
+            .schedulecomponent {
+                position: relative;
+                width: 95%;
+                left: 50%;
+                transform: translate(-50%);
+            }
+
+            .classitemlast {
+
+                padding-right: 10px;
+            }
+
+            .workshopcomponent{
+                width: 95%
+            }
+            .workshopdate{
+                left: 80%;
+            }
+            .infoblockcomponent{
+                 width: 95%
+            }
+
+            .minicomponent{
+                width: 47%;
+                height: 140px;
+            }
+
+            .linearinfoblock{
+                width: 100%;
+                left: 0;
+                top: 45%;
+            }
+            
+        }
+
+        @media screen and (min-height: 1000px) {
+          .headerpanel{
+             font-size: 29.97px
+          }
+          .bodypanel{
+            font-size: 16.983px
+          }
+          
+
+        }
+
+       
+    </style>
+</head>
+
+
+<body onload="loadvideo()">
+    <div id="video-container">
+        <video  playsinline="true" autoplay="true" loop muted="true" preload  id="vid" >
+            <!-- <source src="newback.mp4" type="video/mp4"> -->
+            <source src="draft1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="overlay" onclick="loadvideo()"></div>
+    <div id="panel" class="panel">
+         <div  class="headertext-container">
+        TY WATSON YOGA
+        </div>
+        <div id="menu2" class="menubox">
+            <div  class="circle circlehover"> </div>
+        </div>
+        <div class="spacer"></div>
+<!-- Schedule block -->
+        <div id="schedulecomponent" class="schedulecomponent component">
+            <span class="daygrouping">
+
+                <div class="day">MON</div>
+                <div  class="listofdays">
+                    <div id="monday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">TUE</div>
+                <div  class="listofdays">
+                    <div id="tuesday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">WED</div>
+                <div  class="listofdays">
+                    <div id="wednesday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">THU</div>
+                <div  class="listofdays">
+                    <div id="thursday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">FRI</div>
+                <div  class="listofdays">
+                    <div id="friday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">SAT</div>
+                <div  class="listofdays">
+                    <div id="saturday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+                <div class="day">SUN</div>
+                <div  class="listofdays">
+                    <div id="sunday">
+                    </div> 
+                </div>
+            </span>
+            <span class="daygrouping">
+        </div>
+
+        <div id="workshopblockcomponent" class="component">
+        </div>
+        
+
+<!-- infoblocks -->
+        <div class="infoblockcomponent component">
+            <a href="https://clients.mindbodyonline.com/classic/ws?studioid=816854&stype=-105" target="_blank">
+            <div class="minicomponent" style="background-image: url(privates.png);">
+                <div class="linearinfoblock">
+                    <div class="miniheader">PRIVATES</div>
+                    <div class="minidesc">
+                        Therapeutic private sessions, 1:1 Yoga Sessions, Body and face readings
+                    </div>
+                </div>
+            </div>
+            </a>
+            
+            <div class="minicomponent " style="background-image: url(digital.png);">
+                <a href="https://watch.thestudio.yoga/" target="_blank">
+                <div class="linearinfoblock">
+                    <div class="miniheader">THE DIGITAL STUDIO</div>
+                    <div class="minidesc">
+                        Practice with me any time, from anywhere
+                    </div>
+                </div>
+                 </a>
+            </div>
+           
+        </div>
+
+        <div class="aboutblockcomponent component about">
+            <p>
+            Ty is a Katonah Yoga teacher in New York City. He has taught classes, workshops and trainings all over the world in Los Angeles, Boston, New York and Cape Town. You can find him at The Studio in New York where he spends his time teaching and drinking tea in the back kitchen.
+            </p>
+            <p>
+            He believes that with the right tools we all have the capacity for great insight, the ability to use our time to unearth our personal narratives and alter our trajectories, and the responsibility to remain hopeful. Ty grounds heady, esoteric, and spiritual material in a practical and deeply therapeutic physical practice. Lensed through the Katonah Yoga canon, Ty's teaching blends techniques from Hatha yoga, Taoist philosophy, and theoretical components of Chinese Medicine.
+            </p>
+            <p>
+            Having had a yoga practice since he was 13 years old, Ty incorporates a kaleidoscope of personal reference and banter in his classes. From the esotericism of mountain climbing to what it means to use your yoga practice as a tool for self-cultivation, Ty's ability to play with and integrate theoretical information underpins his teaching. He is passionate about the way we use language to communicate, reconcile a dilemma and tell a story. His teaching philosophy is centered around the use of a good metaphor that connects us to a universal idea. He considers teaching part of living an artful life, and that his role as a teacher is not to judge or to fix, but to reorient.
+            </p>
+            <p>
+            Ty is a certified Katonah Yoga teacher, E-RYT200 and Yoga Alliance Continuing Education Provider. He lives in New York with his husband and their dog. Reach out over email, <a href="mailto:tyrone13watson@gmail.com" target="_blank">tyrone13watson@gmail.com</a>, or <a href="https://www.instagram.com/tywtsn/?hl=en" target="_blank">@tywtsn</a> on Instagram.
+            </p>
+            <p>
+                <i>Katonah Yoga&reg; is a syncretic Hatha yoga practice developed by Nevine Michaan over 40 years. She and her teachers incorporate classical Hatha yoga with Taoist theory, geometry, magic, mythology, metaphor, and imagination - in a practical framework designed to potentiate personal and communal well-being. Framing the practice, maps of time and personal space are defined and refined. Themes using asana as origami, manipulating form for function, and developing a sense of personal measure are incorporated in Katonah Yoga practices.
+                </i>
+            </p>
+            <p>
+                <i>
+                Katonah Yoga is organized around three principles of esoteric dialogue: all polarities are mediated by trinity; the universe has pattern, pattern belies intelligence; by virtue of repetition there is potential for insight. Disciplined techniques are organized for revelation through revolutions.
+                </i>
+            
+            </p>
+
+            <p>
+                <a href="https://www.katonahyoga.com" target="_blank">Katonah Yoga Center</a>
+            </p>
+ 
+                
+        </div>
+        <div class="certs component about" style="background-image: url(certs.png);"></div>
+         <!-- <div class="aboutpicturecomponent component about" style="background-image: url(ty.png);"></div> -->
+        <div class="spacer component about" style="height: 00px;"></div>
+        <div class="aboutcomponent">
+            <div class="aboutcomponentinner">
+           
+                <span class="imagebtn" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mail_%28iOS%29.svg/640px-Mail_%28iOS%29.svg.png')"><a href="mailto:tyrone13watson@gmail.com" style="height: 100%;display: flex"></a>  </span>
+                <span class="imagebtn" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png')"><a href="https://www.instagram.com/tywtsn/?hl=en" style="height: 100%;display: flex"> </a></span>
+                <span class="imagebtn" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png')"> <a href="https://open.spotify.com/user/zkg7vywimpk93i9weye3lojus?si=d04fcfb08506422b" style="height: 100%;display: flex"> </a></span>
+                <span style="width:-webkit-fill-available"></span>
+                <span id=aboutlink" class="aboutlink component" onclick="aboutclick()"><a>ABOUT</a></span>
+                <span id=aboutlink" class="aboutlink component about" onclick="aboutclick()"><a>BACK</a></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     </div>
+
+
+    <div id="headertext-container" class="headertext-container headertitems">
+        TY WATSON YOGA
+    </div>
+     <div id="subtext-container" class="headertitems">
+        <span id="nextclass"></span> <u  id="more" class="morelink">more &#x21E2;</u>
+    </div>
+    <div id="menu1" class="menubox headertitems">
+     <div  class="circle headertitems"></div>
+    </div>
+
+    
+
+    <script>
+        
+        document.getElementById("vid").muted=true;
+        document.getElementById("vid").autoplay=true;
+        document.getElementById("vid").play();
+        // $("video[autoplay]").each(function(){ this.play(); });
+        // $("vid").get(0).play();
+        // document.querySelector('video').play();
+
+        var panel = document.getElementById("panel");
+        var headertext = document.getElementById("headertext-container");
+        var subtext = document.getElementById("subtext-container");
+        var more = document.getElementById("more");
+        var menu1 = document.getElementById("menu1");
+        var menu2 = document.getElementById("menu2");
+        var overlay = document.getElementById("overlay");
+        var schedule = document.getElementById("schedule");
+        var schedulecomponent = document.getElementById("schedulecomponent");
+
+       
+
+        var panelitems = document.getElementsByClassName("panelitems");
+         var component = document.getElementsByClassName("component");
+
+        menu1.addEventListener("click", function() {
+            for (var i =0; i <= panelitems.length-1 ; i++) {
+                 panelitems[i].classList.toggle("open");
+            }
+            panel.classList.toggle("open");
+
+            headertext.classList.toggle("open");
+            subtext.classList.toggle("open");
+            menu1.classList.toggle("open");
+            // $("video[autoplay]").each(function(){ this.play(); });
+        });
+
+        menu2.addEventListener("click", function() {
+            for (var i =0; i <= panelitems.length-1 ; i++) {
+                 panelitems[i].classList.toggle("open");
+            }
+            panel.classList.toggle("open");
+            setTimeout(function() {
+                headertext.classList.remove("open");
+                subtext.classList.toggle("open");
+            }, 200);
+           
+            
+            menu1.classList.toggle("open");
+            // $("video[autoplay]").each(function(){ this.play(); });
+        });
+
+        more.addEventListener("click", function() {
+             for (var i =0; i <= panelitems.length-1 ; i++) {
+                 panelitems[i].classList.toggle("open");
+            }
+            panel.classList.toggle("open");
+            headertext.classList.toggle("open");
+            subtext.classList.toggle("open");
+            menu1.classList.toggle("open");
+
+        });
+
+         overlay.addEventListener("click", function() {
+             for (var i =0; i <= panelitems.length-1 ; i++) {
+                 panelitems[i].classList.remove("open");
+            }
+            panel.classList.remove("open");
+            headertext.classList.remove("open");
+            subtext.classList.remove("open");
+            menu1.classList.remove("open");
+
+        });
+
+
+
+      
+
+        function aboutclick() {
+             for (var i =0; i <= component.length-1 ; i++) {
+                 component[i].classList.toggle("about");
+            }
+            panel.scrollTo(0, 0);
+        }
+        // schedule.addEventListener("click", function() {
+        //      for (var i =0; i <= panelitems.length-1 ; i++) {
+        //          panelitems[i].classList.toggle("about");
+        //     }
+        // });
+        
+
+        function loadvideo() {
+                $("video[autoplay]").each(function(){ this.play(); });
+            }
+
+        window.addEventListener('load', ()=>{
+          $("video[autoplay]").each(function(){ this.play(); });
+        })
+        
+         setInterval(function() {
+                $("video[autoplay]").each(function(){ this.play(); });
+            }, 1000);
+//============================================================
+// Function to parse the schedule data
+function parseScheduleData(data) {
+  const lines = data.split('\n');
+  const header = lines[0].split(';').map((item) => item.trim());
+  const schedule = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const fields = lines[i].split(';').map((item) => item.trim());
+    const item = {};
+    for (let j = 0; j < header.length; j++) {
+      item[header[j]] = fields[j];
+    }
+    schedule.push(item);
+  }
+
+  return schedule;
+}
+
+function getDateTimeOfNextDayOfWeek(dayOfWeek, time) {
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date(); // Get today's date
+  const currentDayOfWeek = today.getDay(); // Get the current day of the week (0 - Sunday, 1 - Monday, ..., 6 - Saturday)
+
+  const targetDayOfWeek = daysOfWeek.indexOf(dayOfWeek);
+
+  if (targetDayOfWeek === -1) {
+    throw new Error('Invalid day of the week');
+  }
+
+  let dayDiff = targetDayOfWeek - currentDayOfWeek;
+
+  if (dayDiff < 0) {
+    dayDiff += 7; // If the target day has already passed this week, add 7 days to get the date in the next week
+  }
+
+  const targetDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + dayDiff);
+  const [hours, minutes, seconds] = time.split(':');
+  targetDate.setHours(hours);
+  targetDate.setMinutes(minutes);
+  targetDate.setSeconds(seconds);
+
+  return targetDate;
+}
+
+// Function to find the next chronologically scheduled item
+function findNextScheduledItem(schedule) {
+  const now = new Date();
+  const today = now.toDateString();
+
+  let nextItem = null;
+  let nextItemTime = Infinity;
+
+  for (const item of schedule) {
+    console.log(getDateTimeOfNextDayOfWeek(item.Day,item.Time))
+    // debugger
+    const itemDate = getDateTimeOfNextDayOfWeek(item.Day,item.Time)
+    // console.log(itemDate)
+    if (itemDate > now && itemDate < nextItemTime) {
+      nextItem = item;
+      nextItemTime = itemDate;
+    }
+  }
+
+  return nextItem;
+}
+
+// Fetch the schedule file from the server
+
+fetch('schedule.txt')
+  .then((response) => response.text())
+  .then((data) => {
+    const schedule = parseScheduleData(data);
+    const nextItem = findNextScheduledItem(schedule);
+    console.log(schedule)
+    console.log(nextItem)
+    if (nextItem) {
+        // debugger;
+      nextItem.Day = nextItem.Day.substring(0, 3);
+      nextItem.Time = nextItem.Time.substring(0, 5);
+      const { Location, Day, Time } = nextItem;
+      console.log('Next scheduled item:');
+      console.log(`Location: ${Location}`);
+      console.log(`Day: ${Day}`);
+      console.log(`Time: ${Time}`);
+      console.log(`Upcoming - ${Location} | ${Day} ${Time} EST`);
+      document.getElementById("nextclass").innerHTML = `Upcoming - ${Location} | ${Day} ${Time} EST | `;
+    } else {
+      console.log('No upcoming scheduled items');
+    }
+    // next build the text components
+    const monday = document.getElementById("monday");
+    const tuesday = document.getElementById("tuesday");
+    const wednesday = document.getElementById("wednesday");
+    const thursday = document.getElementById("thursday");
+    const friday = document.getElementById("friday");
+    const saturday = document.getElementById("saturday");
+    const sunday = document.getElementById("sunday");
+    
+    console.log(schedule);
+
+    // Loop through the array and build a component for each object
+    schedule.forEach((schedule) => {
+      // Create a new component element
+      const component = document.createElement("span");
+
+      component.classList.add("classitem")
+      component.innerHTML= `
+
+            <div class="colourline" style="border:${schedule.Colour} 2px solid"></div>
+            <div>
+                <div class="title">${schedule.Title}</div>
+                <div class="time">${schedule.Time}</div>
+            </div>
+            <div class="classitemlast">
+                <div class="booking"><a href="${schedule.Booking}" target="_blank">BOOK</a></div>
+                <div class="location">${schedule.Location}</div>
+            </div>
+
+      `
+
+      // Append the component to the container
+      switch(schedule.Day.substring(0, 3)){
+        case "Mon":
+            monday.appendChild(component);
+            break;
+        case "Tue":
+            tuesday.appendChild(component);
+            break;
+        case "Wed":
+            wednesday.appendChild(component);
+            break;
+        case "Thu":
+            thursday.appendChild(component);
+            break;
+        case "Fri":
+            friday.appendChild(component);
+            break;
+        case "Sat":
+            saturday.appendChild(component);
+            break;
+        case "Sun":
+            sunday.appendChild(component);
+            break;
+
+
+      }
+      
+    });
+
+    // Hide all empty days
+    if(monday.children.length == 0 ){
+        monday.parentElement.parentElement.style.display = "none"
+    }
+    if(tuesday.children.length == 0 ){
+        monday.parentElement.parentElement.style.display = "none"
+    }
+    if(thursday.children.length == 0 ){
+        thursday.parentElement.parentElement.style.display = "none"
+    }
+    if(friday.children.length == 0 ){
+        friday.parentElement.parentElement.style.display = "none"
+    }
+    if(wednesday.children.length == 0 ){
+        wednesday.parentElement.parentElement.style.display = "none"
+    }
+    if(saturday.children.length == 0 ){
+        saturday.parentElement.parentElement.style.display = "none"
+    }
+    if(sunday.children.length == 0 ){
+        sunday.parentElement.parentElement.style.display = "none"
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+
+fetch('workshop.txt')
+  .then((response) => response.text())
+  .then((data) => {
+    const workshop = parseScheduleData(data);
+   
+    console.log(workshop)
+    const workshopblockcomponent = document.getElementById("workshopblockcomponent");
+ 
+
+    if(workshop.length > 0 && workshop[0].Title !== undefined){
+        // Loop through the array and build a component for each object
+        workshop.forEach((workshop) => {
+          // Create a new component element
+
+          const component = document.createElement("div");
+
+          component.classList.add("workshopcomponent")
+          component.style.backgroundImage = `url('${workshop.Background}')`
+          component.innerHTML= `
+                    
+                    <div class="linearworkblock">
+                        <div class="workshoptitle">${workshop.Title}</div>
+                        <div class="workshoptype">${workshop.Type}</div>
+                        <div class="workshopsubtitle">${workshop.Studio}, ${workshop.Location}</div>
+                        <p class="workshopsubdesc">${workshop.Description}</p>
+                    
+                    
+
+                     
+       
+
+          `
+        if(workshop.Active == "true"){
+            component.innerHTML= component.innerHTML + `
+                     <div class="workshoplink"><a href="${workshop.Booking}" target="_blank">BOOK HERE</a></div>
+                </div>
+                `
+        }else{
+                component.innerHTML= component.innerHTML + `
+                     <div class="workshoplink">Coming soon</a></div>
+                </div>
+                `
+        }
+        component.innerHTML= component.innerHTML + `
+         <div class="workshopdate"><div class="workshoptext"><span style="color:#ff5656;font-weight:700">${workshop.Date}</span> <span style="color:gray">${workshop.Time}</span></div>
+         `
+         
+            workshopblockcomponent.appendChild(component);
+           
+
+
+          
+          
+        });
+    }
+
+  
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+   
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
