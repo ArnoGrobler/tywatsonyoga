@@ -20,6 +20,15 @@
             height: 100%;
             overflow: hidden;
         }
+
+        #vid {
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+        
+        #vid.loaded {
+          opacity: 1;
+        }
         
         #video-container video {
             position: absolute;
