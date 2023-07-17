@@ -853,6 +853,14 @@
             for (var i =0; i <= panelitems.length-1 ; i++) {
                  panelitems[i].classList.toggle("open");
             }
+            setTimeout(function() {
+                if(schedulecomponent.classList.contains("about")){
+                    for (var i =0; i <= component.length-1 ; i++) {
+                        component[i].classList.toggle("about");
+                    }
+                }
+            }, 200);
+            
             panel.classList.toggle("open");
 
             headertext.classList.toggle("open");
@@ -865,6 +873,14 @@
             for (var i =0; i <= panelitems.length-1 ; i++) {
                  panelitems[i].classList.toggle("open");
             }
+            setTimeout(function() {
+                if(schedulecomponent.classList.contains("about")){
+                    for (var i =0; i <= component.length-1 ; i++) {
+                        component[i].classList.toggle("about");
+                    }
+                }
+            }, 200);
+
             panel.classList.toggle("open");
             setTimeout(function() {
                 headertext.classList.remove("open");
@@ -880,10 +896,18 @@
              for (var i =0; i <= panelitems.length-1 ; i++) {
                  panelitems[i].classList.toggle("open");
             }
+            setTimeout(function() {
+                if(schedulecomponent.classList.contains("about")){
+                    for (var i =0; i <= component.length-1 ; i++) {
+                        component[i].classList.toggle("about");
+                    }
+                }
+            }, 200);
             panel.classList.toggle("open");
             headertext.classList.toggle("open");
             subtext.classList.toggle("open");
             menu1.classList.toggle("open");
+
 
         });
 
@@ -891,6 +915,13 @@
              for (var i =0; i <= panelitems.length-1 ; i++) {
                  panelitems[i].classList.remove("open");
             }
+            setTimeout(function() {
+                if(schedulecomponent.classList.contains("about")){
+                    for (var i =0; i <= component.length-1 ; i++) {
+                        component[i].classList.toggle("about");
+                    }
+                }
+            }, 200);
             panel.classList.remove("open");
             headertext.classList.remove("open");
             subtext.classList.remove("open");
@@ -903,7 +934,7 @@
       
 
         function aboutclick() {
-             for (var i =0; i <= component.length-1 ; i++) {
+            for (var i =0; i <= component.length-1 ; i++) {
                  component[i].classList.toggle("about");
             }
             panel.scrollTo(0, 0);
