@@ -1,3 +1,3 @@
-Title;																Studio;					Active;		Date;			Time;			Type;									Location;			Booking;							Background;															Description;
-Using the Wraps for Rapture;										Online; 				true;		Thu 24 Aug;		2:00pm;			Home Practice Immersion;				The Studio; 		http://www.thestudio.yoga/classes;	wraps.png;															If the body is the vehicle, the mind the passenger and the breath the driver, then the wraps for rapture become the way to track and ...
-Making the Practice Impersonal & The Mechanics of Breath work;		Online; 				false;		Coming Soon;		  ;			Therapeutics Immersion;					The Studio; 		http://www.thestudio.yoga/classes;	practice.png;														
+Title;																Studio;					Active;		Date;			Time;			Type;									Location;			Booking;											Background;															Description;
+Using the Wraps for Rapture;										Online; 				true;		Thu 24 Aug;		2:00pm;			Home Practice Immersion;				The Studio; 		http://www.thestudio.yoga/home-practice-immersion;	wraps.png;															If the body is the vehicle, the mind the passenger and the breath the driver, then the wraps for rapture become the way to track and ...
+Making the Practice Impersonal & The Mechanics of Breath work;		Online; 				false;		Coming Soon;		  ;			Therapeutics Immersion;					The Studio; 		http://www.thestudio.yoga/classes;					practice.png;														
