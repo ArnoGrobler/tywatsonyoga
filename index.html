@@ -851,7 +851,12 @@
        
 
         var panelitems = document.getElementsByClassName("panelitems");
-         var component = document.getElementsByClassName("component");
+        var component = document.getElementsByClassName("component");
+
+        const video = document.getElementById('vid');
+        video.addEventListener('loadeddata', function() {
+          video.classList.add('loaded');
+        });
 
         menu1.addEventListener("click", function() {
             for (var i =0; i <= panelitems.length-1 ; i++) {
