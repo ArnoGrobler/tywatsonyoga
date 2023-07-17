@@ -1024,6 +1024,25 @@ function findNextScheduledItem(schedule) {
   return nextItem;
 }
 
+function formatTime(timeString) {
+  const [hours, minutes, seconds] = timeString.split(':');
+
+  let formattedHours = parseInt(hours);
+  let period = 'AM';
+
+  if (formattedHours >= 12) {
+    formattedHours = formattedHours % 12;
+    period = 'PM';
+  }
+
+  if (formattedHours === 0) {
+    formattedHours = 12;
+  }
+
+  const formattedTime = `${formattedHours}:${minutes} ${period}`;
+  return formattedTime;
+}
+
 // Fetch the schedule file from the server
 
 fetch('schedule.txt')
@@ -1043,7 +1062,7 @@ fetch('schedule.txt')
       console.log(`Day: ${Day}`);
       console.log(`Time: ${Time}`);
       console.log(`Upcoming - ${Location} | ${Day} ${Time} EST`);
-      document.getElementById("nextclass").innerHTML = `Upcoming - ${Location} | ${Day} ${Time} EST | `;
+      document.getElementById("nextclass").innerHTML = `Upcoming - ${Location} | ${Day} ${formatTime(Time)} EST | `;
     } else {
       console.log('No upcoming scheduled items');
     }
@@ -1069,7 +1088,7 @@ fetch('schedule.txt')
             <div class="colourline" style="border:${schedule.Colour} 2px solid"></div>
             <div>
                 <div class="title">${schedule.Title}</div>
-                <div class="time">${schedule.Time}</div>
+                <div class="time">${formatTime(schedule.Time)}</div>
             </div>
             <div class="classitemlast">
                 <div class="booking"><a href="${schedule.Booking}" target="_blank">BOOK</a></div>
