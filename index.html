@@ -1054,6 +1054,7 @@ fetch('schedule.txt')
   .then((response) => response.text())
   .then((data) => {
     const schedule = parseScheduleData(data);
+    schedule = JSON.parse(JSON.stringify(schedule))
     const nextItem = findNextScheduledItem(schedule);
     console.log(schedule)
     console.log(nextItem)
@@ -1164,7 +1165,7 @@ fetch('workshop.txt')
   .then((response) => response.text())
   .then((data) => {
     const workshop = parseScheduleData(data);
-   
+    workshop = JSON.parse(JSON.stringify(workshop))
     console.log(workshop)
     const workshopblockcomponent = document.getElementById("workshopblockcomponent");
  
