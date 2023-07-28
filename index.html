@@ -968,12 +968,16 @@ function parseScheduleData(data) {
   const schedule = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const fields = lines[i].split(';').map((item) => item.trim());
-    const item = {};
-    for (let j = 0; j < header.length; j++) {
-      item[header[j]] = fields[j];
+    if(lines[i] !== ""){
+      const fields = lines[i].split(';').map((item) => item.trim());
+      const item = {};
+      for (let j = 0; j < header.length; j++) {
+        item[header[j]] = fields[j];
+      }
+      if(item.Title !== "" and item.Title !== undefined{
+        schedule.push(item);
+      }
     }
-    schedule.push(item);
   }
 
   return schedule;
@@ -1054,7 +1058,6 @@ fetch('schedule.txt')
   .then((response) => response.text())
   .then((data) => {
     const schedule = parseScheduleData(data);
-    schedule = JSON.parse(JSON.stringify(schedule))
     const nextItem = findNextScheduledItem(schedule);
     console.log(schedule)
     console.log(nextItem)
@@ -1165,7 +1168,6 @@ fetch('workshop.txt')
   .then((response) => response.text())
   .then((data) => {
     const workshop = parseScheduleData(data);
-    workshop = JSON.parse(JSON.stringify(workshop))
     console.log(workshop)
     const workshopblockcomponent = document.getElementById("workshopblockcomponent");
  
