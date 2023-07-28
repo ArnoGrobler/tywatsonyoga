@@ -1014,13 +1014,15 @@ function findNextScheduledItem(schedule) {
   let nextItemTime = Infinity;
 
   for (const item of schedule) {
-    console.log(getDateTimeOfNextDayOfWeek(item.Day,item.Time))
-    // debugger
-    const itemDate = getDateTimeOfNextDayOfWeek(item.Day,item.Time)
-    // console.log(itemDate)
-    if (itemDate > now && itemDate < nextItemTime) {
-      nextItem = item;
-      nextItemTime = itemDate;
+    if(item.Day !== "" && item.day !== undefined){
+      console.log(getDateTimeOfNextDayOfWeek(item.Day,item.Time))
+      // debugger
+      const itemDate = getDateTimeOfNextDayOfWeek(item.Day,item.Time)
+      // console.log(itemDate)
+      if (itemDate > now && itemDate < nextItemTime) {
+        nextItem = item;
+        nextItemTime = itemDate;
+      }
     }
   }
 
