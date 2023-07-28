@@ -1018,7 +1018,7 @@ function findNextScheduledItem(schedule) {
   let nextItemTime = Infinity;
 
   for (const item of schedule) {
-    if(item.Day !== "" && item.day !== undefined){
+    if(item.Day !== "" && item.Day !== undefined){
       console.log(getDateTimeOfNextDayOfWeek(item.Day,item.Time))
       // debugger
       const itemDate = getDateTimeOfNextDayOfWeek(item.Day,item.Time)
