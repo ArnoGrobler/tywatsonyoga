@@ -1,6 +1,5 @@
 Title;					Location;		Day;			Time;		Colour;		Booking;
-Katonah Yoga;			The Studio; 	Tuesday; 		10:30:00;	#cce7ff;	http://www.thestudio.yoga/classes
+Katonah Yoga;			The Studio; 	Tuesday; 		10:00:00;	#cce7ff;	http://www.thestudio.yoga/classes
 Katonah Restorative;	The Studio; 	Tuesday; 		18:30:00;	#cce7ff;	http://www.thestudio.yoga/classes
-Katonah Yoga;			Sarai; 			Wednesday; 		10:00:00;	#fbccff;	https://www.sarainyc.com/book-online-1
-Katonah Yoga;			The Studio; 	Thursday; 		10:30:00;	#cce7ff;	http://www.thestudio.yoga/classes
+Katonah Yoga;			The Studio; 	Thursday; 		10:00:00;	#cce7ff;	http://www.thestudio.yoga/classes
 Katonah Restorative;	The Studio; 	Thursday; 		18:30:00;	#cce7ff;	http://www.thestudio.yoga/classes
